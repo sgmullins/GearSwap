@@ -12,7 +12,7 @@ router.get('/', asyncErrorHandler(postIndex));
 so it does not need asyncErrorHandler*/
 router.get('/new', postNew);
 
-/* GET posts create /posts */
+/* POST posts create /posts */
 router.post('/', upload.array('images', 4), asyncErrorHandler(postCreate));
 
 /* GET posts show /posts/:id */

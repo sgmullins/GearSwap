@@ -5,13 +5,7 @@ const Schema = mongoose.Schema;
 //do not need pass or username in schema b/c passport already includes it
 const UserSchema = new Schema({
     email: String,
-    image: String,
-    posts: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Post'
-        }
-    ]
+    image: String
 });
 
 UserSchema.plugin(passportLocalMongoose);
