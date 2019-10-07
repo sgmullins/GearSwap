@@ -30,5 +30,9 @@ module.exports = {
     async postUpdate(req,res,next){
       let post = await Post.findByIdAndUpdate(req.params.id, req.body.post);
         res.redirect(`/posts/${post.id}`);
+    },
+    async postDestroy(req,res,next){
+        await Post.findByIdAndRemove(req.params.id);
+        res.redirect('/posts');
     }
 }
