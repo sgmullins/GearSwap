@@ -13,7 +13,7 @@ module.exports = {
     //Post index
     async postIndex(req, res, next){
         let posts = await Post.find({});
-        res.render('posts/index', { posts });
+        res.render('posts/index', { posts, title: 'Posts Index' });
     },
     //new post no async because it is not rendering any data, just getting a form so it does not need asyncErrorHandler
     postNew(req, res, next){
@@ -38,6 +38,7 @@ module.exports = {
             req.body.post.coordinates = response.body.features[0].geometry.coordinates;
         //use req.body to create a new Post
         let post = await Post.create(req.body.post);
+        req.session.success = 'Post created successfully!';
         res.redirect(`/posts/${post.id}`);
     },
     //Post Show
