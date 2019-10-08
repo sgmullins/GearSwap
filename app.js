@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -33,6 +34,8 @@ mongoose.connect(process.env.DATABASEURL, {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+//setup public assets director for express
+app.use(express.static('public'));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
