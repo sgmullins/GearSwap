@@ -62,7 +62,12 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //Set local variables middleware (this is pre route middleware)
-app.use(function(req, res, next){
+app.use(function(req, res, next) {
+  req.user = {
+    '_id' : '5d9cc82f579e2240b85edeb0',
+    'username' : 'steve'
+  }
+  res.locals.currentUser = req.user;
   //set default page title
   res.locals.title = "Gear Swap";
   //set success flash message
