@@ -1,72 +1,53 @@
 <% layout('layouts/post-show-layout') -%>
-
-<h1> <%= post.title %> </h1>
-<div>Price: <%= post.price %> </div>
-<div><%= post.description %> </div>
-<div> <%= post.location %> </div>
+<h1><%= post.title %></h1>
+<div>Price: <%= post.price %></div>
+<div><%= post.description %></div>
+<div><%= post.location %></div>
 <div>
-    <% post.images.forEach(function(image) { %>
-    <img src="<%= image.url %>" alt="climbing gear image" width="200px">
-    <% }); %>
+	<% post.images.forEach(function(image) { %>
+	<img src="<%= image.url %>" alt="Surf board image" width="200px">
+	<% }); %>
 </div>
 <div id='map'></div>
 <div>
-    <a href="/posts/<%= post.id %>/edit">
-        <button>Edit</button>
-    </a>
+	<a href="/posts/<%= post.id %>/edit">
+		<button>Edit</button>
+	</a>
 </div>
 <div>
-    <form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
-        <input type="submit" value="Delete">
-    </form>
-</div>
+	<form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+		<input type="submit" value="Delete">
+	</form>
+</div> 
+
 
 <h2>Create a Review</h2>
 <form action="/posts/<%= post.id %>/reviews" method="POST">
-    <textarea name="review[body]"></textarea>
-    <input type="number" name="review[rating]" min="1" max="5" step="1" required>
+	<textarea name="review[body]" required></textarea>
+	<input type="number" name="review[rating]" min="1" max="5" step="1" required>
 
-    <input type="submit">
+	<input type="submit">
 </form>
+
 <h3>Reviews</h3>
+<!-- display all reviews -->
 <% post.reviews.forEach(function(review) { %>
-    <div>
-    <%= review.body %>
-    Rating: <%= review.rating %>
-    </div>
-<<<<<<< HEAD
-    <div>
-        <button class="toggle-edit-form">Edit</button>
+	<div>
+		Author: <%= review.author.username %><br>
+		<%= review.body %><br>
+		Rating: <%= review.rating %>
+	</div>
+	<% if(review.author.equals(currentUser._id)) { %>
+	<div>
+		<button class="toggle-edit-form">Edit</button>
 
-        <form action="/posts/<%=post.id %>/reviews/<%= review.id %>?_method=PUT" method="POST" class="edit-review-form">
-            <textarea name="review[body]"><%= review.body %></textarea>
-            <input type="number" name="review[rating]" min="1" max="5" step="1" value="<%= review.rating %>" required>
-            
-            <input type="submit" value="Update">
-        </form>
-    </div>
-    <hr>
+		<form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT" method="POST" class="edit-review-form">
+			<textarea name="review[body]" required><%= review.body %></textarea>
+			<input type="number" name="review[rating]" min="1" max="5" step="1" value="<%= review.rating %>" required>
+
+			<input type="submit" value="Update">
+		</form>
+	</div>
+	<% } %>
+	<hr>
 <% }); %>
-<<<<<<< HEAD
-=======
-<% }); %>
-
-=======
-
-<script>
-    $('.toggle-edit-form').on('click', function(){
-        //toggle the edit button text onclick
-        $(this).text() === 'Edit' ? $(this).text('Cancel') : $(this).text('Edit');
-        //toggle visibility of edit review form
-        $(this).siblings('.edit-review-form').toggle();
-       });
-</script>
->>>>>>> parent of 5e9c7dc... add a bunch of errors...
-
-
-
-
-<<<<<<< HEAD
->>>>>>> parent of b226cc0... Add jquery edit reviews code, set user to always logged in
-=======
->>>>>>> parent of 5e9c7dc... add a bunch of errors...

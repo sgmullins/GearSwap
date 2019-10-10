@@ -1,19 +1,13 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const {  asyncErrorHandler } = require('../middleware');
+const {  asyncErrorHandler, isReviewAuthor} = require('../middleware');
 const { reviewCreate, reviewUpdate, reviewDestroy } = require('../controllers/reviews');
 
 /* GET reviews create /posts/:id/reviews */
 router.post('/', asyncErrorHandler(reviewCreate));
 
 /* PUT reviews update /posts/:id/reviews/:review_id */
-<<<<<<< HEAD
-router.put('/:review_id', (req, res, next) => {
-    res.send('UPDATE /posts/:id/reviews/:review_id');
-  });
-=======
-router.put('/:review_id', asyncErrorHandler(reviewUpdate));
->>>>>>> parent of 5e9c7dc... add a bunch of errors...
+router.put('/:review_id', isReviewAuthor, asyncErrorHandler(reviewUpdate));
 
 /* DELETE reviews destroy /posts/:id/reviews/:review_id */
 router.delete('/:review_id', (req, res, next) => {

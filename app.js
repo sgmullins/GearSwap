@@ -57,12 +57,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(User.createStrategy());
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //Set local variables middleware (this is pre route middleware)
-app.use(function(req, res, next){
+app.use(function(req, res, next) {
+  req.user = {
+    '_id' : '5d9cc82f579e2240b85edeb0',
+    'username' : 'steve'
+  }
+  res.locals.currentUser = req.user;
   //set default page title
   res.locals.title = "Gear Swap";
   //set success flash message
@@ -83,9 +87,10 @@ app.use('/posts/:id/reviews', reviews);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
-
 // error handler
 app.use(function(err, req, res, next) {
   // // set locals, only providing error in development
