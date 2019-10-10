@@ -7,7 +7,13 @@ const { reviewCreate, reviewUpdate, reviewDestroy } = require('../controllers/re
 router.post('/', asyncErrorHandler(reviewCreate));
 
 /* PUT reviews update /posts/:id/reviews/:review_id */
+<<<<<<< HEAD
 router.put('/:review_id', isReviewAuthor, asyncErrorHandler(reviewUpdate));
+=======
+router.put('/:review_id', (req, res, next) => {
+    res.send('UPDATE /posts/:id/reviews/:review_id');
+  });
+>>>>>>> parent of b226cc0... Add jquery edit reviews code, set user to always logged in
 
 /* DELETE reviews destroy /posts/:id/reviews/:review_id */
 router.delete('/:review_id', (req, res, next) => {
