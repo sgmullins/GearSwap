@@ -25,3 +25,7 @@ max-width: 200px;
 text-align: center;
 font-family: 'Open Sans', sans-serif;
 }
+
+.edit-review-form {
+  display: none;
+}
