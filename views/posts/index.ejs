@@ -1,6 +1,7 @@
 <% layout('layouts/boilerplate') -%>
 
 <h1>Post index</h1>
+<% include ../partials/paginatePosts %>
 
 <% posts.docs.forEach(function(post){ %>
     <div>
@@ -12,3 +13,5 @@
     </div>
 
 <% }); %>
+
+<% include ../partials/paginatePosts %>
