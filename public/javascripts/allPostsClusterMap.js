@@ -5,12 +5,13 @@ var map = new mapboxgl.Map({
     zoom: 3.3
 });
 
+//search capability
 map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
 }));
 
 map.on('load', function() {
-    // Add a new source from our GeoJSON data and set the
+    // Add a new source(posts) from our GeoJSON data and set the
     // 'cluster' option to true. GL-JS will add the point_count property to your source data.
     map.addSource("posts", {
         type: "geojson",
@@ -51,7 +52,7 @@ map.on('load', function() {
             ]
         }
     });
-
+    //add numbers to the cluster circle
     map.addLayer({
         id: "cluster-count",
         type: "symbol",
