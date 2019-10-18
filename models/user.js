@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 //do not need pass or username in schema b/c passport already includes it
 const UserSchema = new Schema({
-    email: String,
+    email: { type: String, unique: true, required: true },
     image: String
 });
 
