@@ -37,6 +37,7 @@ module.exports = {
 	getLogin(req, res, next) {
 		//don't allow a logged in user to go to /login
 		if(req.isAuthenticated()) return res.redirect('/');
+		if (req.query.returnTo) req.session.redirectTo = req.headers.referer;
 		res.render('login', { title: 'Login' });
 	},
 	// POST /login
