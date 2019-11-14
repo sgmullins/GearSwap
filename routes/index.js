@@ -15,63 +15,59 @@ const {
   postLogin,
   getLogout,
   getProfile,
-  updateProfile
+  updateProfile,
+  getForgotPw,
+  putForgotPw,
+  getReset,
+  putReset
 } = require('../controllers');
 const {
   asyncErrorHandler,
   isLoggedIn,
   isValidPassword,
   changePassword
-} = require('../middleware');
-
+} = require('../middleware')
 
 /* GET home/landing page. */
 router.get('/', asyncErrorHandler(landingPage));
 
-/* GET /register  */
+/* GET /register */
 router.get('/register', getRegister);
 
-/* POST /register  */
+/* POST /register */
 router.post('/register', upload.single('image'), asyncErrorHandler(postRegister));
 
-/* GET /login  */
+/* GET /login */
 router.get('/login', getLogin);
 
-/* POST /login  */
+/* POST /login */
 router.post('/login', asyncErrorHandler(postLogin));
 
-/* GET /logout  */
+/* GET /logout */
 router.get('/logout', getLogout);
 
-/* GET /profile  */
+/* GET /profile */
 router.get('/profile', isLoggedIn, asyncErrorHandler(getProfile));
 
-/* PUT /profile  */
-router.put('/profile', isLoggedIn,
+/* PUT /profile */
+router.put('/profile',
+  isLoggedIn,
   upload.single('image'),
   asyncErrorHandler(isValidPassword),
   asyncErrorHandler(changePassword),
   asyncErrorHandler(updateProfile)
 );
 
-/* GET /forgot  */
-router.get('/forgot', (req, res, next) => {
-  res.send('GET /forgot');
-});
+/* GET /forgot */
+router.get('/forgot-password', getForgotPw);
 
-/* PUT /forgot  */
-router.put('/forgot', (req, res, next) => {
-  res.send('PUT /forgot');
-});
+/* PUT /forgot */
+router.put('/forgot-password', asyncErrorHandler(putForgotPw));
 
-/* GET /reset/:token  */
-router.get('/reset/:token', (req, res, next) => {
-  res.send('GET /reset/:token');
-});
+/* GET /reset/:token */
+router.get('/reset/:token', asyncErrorHandler(getReset));
 
-/* PUT /reset/:token  */
-router.put('/reset/:token', (req, res, next) => {
-  res.send('PUT /reset/:token');
-});
+/* PUT /reset/:token */
+router.put('/reset/:token', asyncErrorHandler(putReset));
 
 module.exports = router;
