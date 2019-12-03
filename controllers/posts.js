@@ -1,22 +1,34 @@
 const Post = require('../models/post');
-const { cloudinary } = require('../cloudinary');
+const {
+	cloudinary
+} = require('../cloudinary');
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
-const geocodingClient = mbxGeocoding({ accessToken: mapBoxToken });
+const geocodingClient = mbxGeocoding({
+	accessToken: mapBoxToken
+});
 
 module.exports = {
 	// Posts Index
 	async postIndex(req, res, next) {
-		let posts = await Post.paginate({}, {
+		const {
+			dbQuery
+		} = res.locals;
+		delete res.locals.dbQuery;
+		let posts = await Post.paginate(dbQuery, {
 			page: req.query.page || 1,
 			limit: 10,
 			sort: '-_id'
 		});
 		posts.page = Number(posts.page);
-		res.render('posts/index', { 
-			posts, 
-			mapBoxToken, 
-			title: 'Posts Index' });
+		if (!posts.docs.length && res.locals.query) {
+			res.locals.error = 'No results match that query.';
+		}
+		res.render('posts/index', {
+			posts,
+			mapBoxToken,
+			title: 'Posts Index'
+		});
 	},
 	// Posts New
 	postNew(req, res, next) {
@@ -25,18 +37,18 @@ module.exports = {
 	// Posts Create
 	async postCreate(req, res, next) {
 		req.body.post.images = [];
-		for(const file of req.files) {
+		for (const file of req.files) {
 			req.body.post.images.push({
-			url: file.secure_url,
-			public_id: file.public_id
+				url: file.secure_url,
+				public_id: file.public_id
 			});
 		}
 		let response = await geocodingClient
-		  .forwardGeocode({
-		    query: req.body.post.location,
-		    limit: 1
-		  })
-		  .send();
+			.forwardGeocode({
+				query: req.body.post.location,
+				limit: 1
+			})
+			.send();
 		req.body.post.geometry = response.body.features[0].geometry;
 		req.body.post.author = req.user._id;
 		let post = new Post(req.body.post);
@@ -49,34 +61,45 @@ module.exports = {
 	async postShow(req, res, next) {
 		let post = await Post.findById(req.params.id).populate({
 			path: 'reviews',
-			options: { sort: { '_id': -1 } },
+			options: {
+				sort: {
+					'_id': -1
+				}
+			},
 			populate: {
 				path: 'author',
 				model: 'User'
 			}
 		});
-		const floorRating = post.calculateAvgRating();
-		res.render('posts/show', { post, mapBoxToken, floorRating });
+		// const floorRating = post.calculateAvgRating();
+		const floorRating = post.avgRating;
+		res.render('posts/show', {
+			post,
+			mapBoxToken,
+			floorRating
+		});
 	},
 	// Posts Edit
-	 postEdit(req, res, next) {
+	postEdit(req, res, next) {
 		res.render('posts/edit');
 	},
 	// Posts Update
 	async postUpdate(req, res, next) {
 		// destructuring post from res.locals
-		const { post } = res.locals;
+		const {
+			post
+		} = res.locals;
 		// check if there's any images for deletion
-		if(req.body.deleteImages && req.body.deleteImages.length) {			
+		if (req.body.deleteImages && req.body.deleteImages.length) {
 			// assign deleteImages from req.body to its own variable
 			let deleteImages = req.body.deleteImages;
 			// loop over deleteImages
-			for(const public_id of deleteImages) {
+			for (const public_id of deleteImages) {
 				// delete images from cloudinary
 				await cloudinary.v2.uploader.destroy(public_id);
 				// delete image from post.images
-				for(const image of post.images) {
-					if(image.public_id === public_id) {
+				for (const image of post.images) {
+					if (image.public_id === public_id) {
 						let index = post.images.indexOf(image);
 						post.images.splice(index, 1);
 					}
@@ -84,9 +107,9 @@ module.exports = {
 			}
 		}
 		// check if there are any new images for upload
-		if(req.files) {
+		if (req.files) {
 			// upload images
-			for(const file of req.files) {
+			for (const file of req.files) {
 				// add images to post.images array
 				post.images.push({
 					url: file.secure_url,
@@ -95,13 +118,13 @@ module.exports = {
 			}
 		}
 		// check if location was updated
-		if(req.body.post.location !== post.location) {
+		if (req.body.post.location !== post.location) {
 			let response = await geocodingClient
-			  .forwardGeocode({
-			    query: req.body.post.location,
-			    limit: 1
-			  })
-			  .send();
+				.forwardGeocode({
+					query: req.body.post.location,
+					limit: 1
+				})
+				.send();
 			post.geometry = response.body.features[0].geometry;
 			post.location = req.body.post.location;
 		}
@@ -117,8 +140,10 @@ module.exports = {
 	},
 	// Posts Destroy
 	async postDestroy(req, res, next) {
-		const { post } = res.locals;
-		for(const image of post.images) {
+		const {
+			post
+		} = res.locals;
+		for (const image of post.images) {
 			await cloudinary.v2.uploader.destroy(image.public_id);
 		}
 		await post.remove();

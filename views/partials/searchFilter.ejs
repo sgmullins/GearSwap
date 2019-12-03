@@ -2,26 +2,15 @@
   <fieldset>
     <legend>Search</legend>
     <label for="search">Search</label>
-    <input
-      type="text"
-      placeholder="Search"
-      name="search"
-      id="search"
-      value="<%= query.search %>"
-    />
+    <input type="text" placeholder="Search" name="search" id="search" value="<%= query.search %>" />
   </fieldset>
 
   <fieldset>
     <div>
       <label for="location">Location</label>
-      <input
-        type="text"
-        id="location"
-        name="location"
-        placeholder="Address or Zipcode"
-        value="<%= query.location %>"
-      />
-      <small><a href="#" id="use-my-location">use my location</a></small>
+      <input type="text" id="location" name="location" placeholder="Address or Zipcode" value="<%= query.location %>" />
+      <small><a href="#" id="find-me">use my location</a></small><br />
+      <p id="status"></p>
     </div>
     <legend>Distance (miles)</legend>
     <div>
@@ -47,29 +36,12 @@
   <fieldset>
     <legend>Price</legend>
     <label for="min">Min</label>
-    <input
-      type="number"
-      id="min"
-      name="price[min]"
-      min="0"
-      max="10000"
-      step="1"
-      placeholder="Min"
-      value="<%= query.price ? query.price.min : '' %>"
-    />
+    <input type="number" id="min" name="price[min]" min="0" max="10000" step="1" placeholder="Min"
+      value="<%= query.price ? query.price.min : '' %>" />
 
     <label for="max">Max</label>
-    <input
-      type="number"
-      id="max"
-      name="price[max]"
-      min="0"
-      max="10000"
-      step="1"
-      step="1"
-      placeholder="Max"
-      value="<%= query.price ? query.price.max : '' %>"
-    />
+    <input type="number" id="max" name="price[max]" min="0" max="10000" step="1" step="1" placeholder="Max"
+      value="<%= query.price ? query.price.max : '' %>" />
   </fieldset>
 
   <fieldset>
@@ -99,3 +71,5 @@
 
   <input type="submit" />
 </form>
+
+<script src="/javascripts/use-my-location.js"></script>
