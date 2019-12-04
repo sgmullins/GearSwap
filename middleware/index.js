@@ -4,7 +4,12 @@ const Post = require('../models/post');
 const {
 	cloudinary
 } = require('../cloudinary');
-
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocodingClient = mbxGeocoding({ accessToken: mapBoxToken });
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
 const middleware = {
 	asyncErrorHandler: (fn) =>
 		(req, res, next) => {
@@ -76,6 +81,9 @@ const middleware = {
 	},
 	deleteProfileImage: async (req) => {
 		if (req.file) await cloudinary.v2.uploader.destroy(req.file.public_id);
+	},
+	async searchAndFilterPosts(req, res, next){
+		
 	}
 };
 
