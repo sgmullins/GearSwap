@@ -7,36 +7,40 @@ const PostSchema = new Schema({
     title: String,
     price: String,
     description: String,
-    images: [{ url: String, public_id: String }],
+    images: [{
+        url: String,
+        public_id: String
+    }],
     location: String,
     geometry: {
         type: {
-          type: String, 
-          enum: ['Point'],
-          required: true
+            type: String,
+            enum: ['Point'],
+            required: true
         },
         coordinates: {
             type: [Number],
             required: true
-          }
-      },
-    properties:  {
+        }
+    },
+    properties: {
         description: String
     },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    reviews: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Review"
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: "Review"
+    }],
+    avgRating: {
+        type: Number,
+        default: 0
     }
-],
-    avgRating: { type: Number, default: 0 }
 });
 
-PostSchema.pre('remove', async function(){
+PostSchema.pre('remove', async function () {
     await Review.remove({
         _id: {
             $in: this.reviews
@@ -45,9 +49,9 @@ PostSchema.pre('remove', async function(){
 });
 
 //add instance method for average rating
-PostSchema.methods.calculateAvgRating = function() {
+PostSchema.methods.calculateAvgRating = function () {
     let ratingsTotal = 0;
-    if(this.reviews.length) {
+    if (this.reviews.length) {
         this.reviews.forEach(review => {
             ratingsTotal += review.rating;
         });
@@ -55,12 +59,16 @@ PostSchema.methods.calculateAvgRating = function() {
     } else {
         this.avgRating = ratingsTotal;
     }
-    
+
     const floorRating = Math.floor(this.avgRating);
     this.save();
     return floorRating;
 }
 
 PostSchema.plugin(mongoosePaginate);
+
+PostSchema.index({
+    geometry: '2dsphere'
+});
 
 module.exports = mongoose.model('Post', PostSchema);
