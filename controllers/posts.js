@@ -5,24 +5,25 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports = {
-	// Posts Index
-	async postIndex(req, res, next) {
-		const { dbQuery } = res.locals;
-		delete res.locals.dbQuery;
-		let posts = await Post.paginate(dbQuery, {
-			page: req.query.page || 1,
-			limit: 10,
-			sort: '-_id'
-		});
-		posts.page = Number(posts.page);
-		if(!posts.docs.length && res.locals.query){
-			res.locals.error = "No results match that query";
-		}
-		res.render('posts/index', { 
-			posts, 
-			mapBoxToken, 
-			title: 'Posts Index' });
-	},
+// Posts Index
+async postIndex(req, res, next) {
+	const { dbQuery } = res.locals;
+	delete res.locals.dbQuery;
+	let posts = await Post.paginate(dbQuery, {
+		page: req.query.page || 1,
+		limit: 10,
+		sort: '-_id'
+	});
+	posts.page = Number(posts.page);
+	if (!posts.docs.length && res.locals.query) {
+		res.locals.error = 'No results match that query.';
+	}
+	res.render('posts/index', { 
+		posts, 
+		mapBoxToken, 
+		title: 'Posts Index' 
+	});
+},
 	// Posts New
 	postNew(req, res, next) {
 		res.render('posts/new');

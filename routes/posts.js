@@ -10,7 +10,8 @@ const upload = multer({
 const {
     asyncErrorHandler,
     isLoggedIn,
-    isAuthor
+    isAuthor,
+    searchAndFilterPosts
 } = require('../middleware');
 const {
     postIndex,
@@ -23,7 +24,7 @@ const {
 } = require('../controllers/posts');
 
 /* GET posts index /posts */
-router.get('/', asyncErrorHandler(postIndex));
+router.get('/', asyncErrorHandler(searchAndFilterPosts), asyncErrorHandler(postIndex));
 
 /* GET posts new /posts/new no async because it is not rendering any data, just getting a form 
 so it does not need asyncErrorHandler*/
