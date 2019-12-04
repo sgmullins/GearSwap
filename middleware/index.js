@@ -105,17 +105,20 @@ async searchAndFilterPosts(req, res, next) {
 		if (location) {
 			let coordinates;
 			try {
+				if(typeof JSON.parse(location) === 'number') {
+				  throw new Error;
+				}
 				location = JSON.parse(location);
 				coordinates = location;
-			} catch(err) {
+			  } catch(err) {
 				const response = await geocodingClient
-					.forwardGeocode({
-						query: location,
-						limit: 1
-					})
-					.send();
+				  .forwardGeocode({
+					query: location,
+					limit: 1
+				  })
+				  .send();
 				coordinates = response.body.features[0].geometry.coordinates;
-			}
+			  }
 			let maxDistance = distance || 25;
 			maxDistance *= 1609.34;
 			dbQueries.push({
