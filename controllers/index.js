@@ -7,7 +7,7 @@ const {
 	cloudinary
 } = require('../cloudinary');
 const {
-	deletProfileImage
+	deleteProfileImage
 } = require('../middleware');
 
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
 				res.redirect('/');
 			});
 		} catch (err) {
-			deletProfileImage(req);
+			deleteProfileImage(req);
 			const {
 				username,
 				email
