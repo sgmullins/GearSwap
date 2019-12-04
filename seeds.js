@@ -19,7 +19,12 @@ async function seedPosts() {
 			},
 			price: random1000,
 			avgRating: random5,
-			author: '5daa32283a19b73774929369'
+			author: '5daa32283a19b73774929369',
+			images: [
+				{
+					url: "https://res.cloudinary.com/gearswap/image/upload/v1575474940/gearSwapImages/climbingGear.jpg"
+				}
+			]
 		}
 		let post = new Post(postData);
 		post.properties.description = `<strong><a href="/posts/${post._id}">${title}</a></strong><p>${post.location}</p><p>${description.substring(0, 20)}...</p>`;
