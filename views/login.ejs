@@ -1,17 +1,30 @@
 <% layout('layouts/boilerplate') -%>
 
-<form action="/login" method="POST">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" placeholder="username" required>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="password" required>
-    </div>
-    <input type="submit">
-</form>
+<form action="/login" method="POST" class="form-align">
+  <h1 class="form-label">Login</h1>
 
-<div>
+  <div>
+    <label for="username">Username:</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      placeholder="username"
+      required
+    />
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="password"
+      required
+    />
+  </div>
+  <input type="submit" />
+  <div>
     <a href="/forgot-password">Forgot password?</a>
-</div>
+  </div>
+</form>

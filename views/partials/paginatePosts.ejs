@@ -1,6 +1,8 @@
-<div style="margin: 20px 0;">
+
+<div class="paginate">
+    <div>Jump To Page:</div>
     <% if(posts.page - 1) { %>
-    <a href="<%= paginateUrl %><%= posts.page - 1 %>">Prev</a>
+    <a href="<%= paginateUrl %><%= posts.page - 1 %>" class="eachPageNumber">Prev</a>
     <% } %>
     <% if (posts.pages > 1 && posts.docs.length) { %>
     <% for (let i = 1; i <= posts.pages; i++) { %>

@@ -1,20 +1,46 @@
 <% layout('layouts/boilerplate') -%>
-<form action="/register" method="POST" enctype="multipart/form-data">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" placeholder="username" value="<%= username %>" required>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="password" required>
-    </div>
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="email" value="<%= email %>" required>
-    </div>
-    <div>
-        <label for="image">Profile Image</label>
-        <input type="file" name="image" id="image">
-    </div>
-    <input type="submit">
+<form
+  action="/register"
+  method="POST"
+  enctype="multipart/form-data"
+  class="form-align"
+>
+  <h1 class="form-label">Register</h1>
+  <div>
+    <label for="username">Username:</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      placeholder="username"
+      value="<%= username %>"
+      required
+    />
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="password"
+      required
+    />
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="email"
+      value="<%= email %>"
+      required
+    />
+  </div>
+  <div>
+    <label for="image">Profile Image</label>
+    <input type="file" name="image" id="image" />
+  </div>
+  <input type="submit" />
 </form>

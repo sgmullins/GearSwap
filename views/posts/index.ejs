@@ -2,33 +2,30 @@
 <h1>Post index</h1>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-4">
-            <% include ../partials/searchFilter %>
-        </div>
-        <div class="col-8">
-            <div id="map"></div>
-        </div>
+  <div class="row">
+    <div class="col-4">
+      <% include ../partials/searchFilter %>
     </div>
+    <div class="col-8">
+      <div id="map"></div>
+    </div>
+  </div>
 </div>
 
-<% include ../partials/paginatePosts %>
-
-<% posts.docs.forEach(function(post){ %>
-    <div>
-        <h2> <%= post.title %> </h2>
-        <div>Price: <%= post.price %> </div>
-        <div><%= post.description %> </div>
-        <div> <%= post.location %> </div>
-        <div><a href="/posts/<%= post.id %>">View More</a></div>
-    </div>
-<% }); %>
-
-<% include ../partials/paginatePosts %>
+<% include ../partials/paginatePosts %> <% posts.docs.forEach(function(post){ %>
+<div class="post-listing">
+  <h2><%= post.title %></h2>
+  <div>Price: <%= post.price %></div>
+  <div><%= post.description %></div>
+  <div><%= post.location %></div>
+  <div><a href="/posts/<%= post.id %>">View More</a></div>
+</div>
+<hr />
+<% }); %> <% include ../partials/paginatePosts %>
 
 <script>
-    mapboxgl.accessToken = "<%= mapBoxToken %>";
-    var posts = { features: <%- JSON.stringify(posts.docs) %> };
+  mapboxgl.accessToken = "<%= mapBoxToken %>";
+  var posts = { features: <%- JSON.stringify(posts.docs) %> };
 </script>
 
 <script src="/javascripts/allPostsClusterMap.js"></script>
