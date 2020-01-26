@@ -1,5 +1,5 @@
-GearSwap
-Welcome to the Gear Swap. You can you can buy, sell or just browse. Deployed at https://frozen-inlet-37523.herokuapp.com/
+<h1>GearSwap<h1>
+<p>Welcome to the Gear Swap. You can you can buy, sell or just browse. Deployed at https://frozen-inlet-37523.herokuapp.com/ </p>
 
 Successes
 This was my first medium sized nodeJS project. This project uses express and express-generator as the node frame work, EJS as the view engine template, bootstrap on the front end for the theme, Cloudinary for image storage and Map box for geo-location of the items for sale. User Auth is done with mongoose and passport. I feel like I gained a good amount of knowledge reguarding MVC layouts.
