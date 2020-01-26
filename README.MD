@@ -9,6 +9,7 @@ The challenges were many as this was my first 'real' project. Learning my way ar
 
 <h2>Screenshots</h2>
 <img src="https://share.getcloudapp.com/6quLpLk4" style="width: 400px">
+![Home page](https://share.getcloudapp.com/6quLpLk4)
 
 https://share.getcloudapp.com/qGuD8DgP
 
