@@ -1,14 +1,14 @@
-<h1>GearSwap<h1>
+<h1>GearSwap</h1>
 <p>Welcome to the Gear Swap. You can you can buy, sell or just browse. Deployed at https://frozen-inlet-37523.herokuapp.com/ </p>
 
-Successes
+<h2>Successes</h2>
 This was my first medium sized nodeJS project. This project uses express and express-generator as the node frame work, EJS as the view engine template, bootstrap on the front end for the theme, Cloudinary for image storage and Map box for geo-location of the items for sale. User Auth is done with mongoose and passport. I feel like I gained a good amount of knowledge reguarding MVC layouts.
 
-Challenges
+<h2>Challenges</h2>
 The challenges were many as this was my first 'real' project. Learning my way around mongoDB atlas, writing schemas and saving the data was a tough spot at first. Learning how to send requests from the front to the back end also required a bit of time and lots of google searches.
 
-Screenshots
-https://share.getcloudapp.com/6quLpLk4
+<h2>Screenshots</h2>
+<img src="https://share.getcloudapp.com/6quLpLk4" style="width: 400px">
 
 https://share.getcloudapp.com/qGuD8DgP
 
