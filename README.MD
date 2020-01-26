@@ -7,17 +7,7 @@ This was my first medium sized nodeJS project. This project uses express and exp
 <h2>Challenges</h2>
 The challenges were many as this was my first 'real' project. Learning my way around mongoDB atlas, writing schemas and saving the data was a tough spot at first. Learning how to send requests from the front to the back end also required a bit of time and lots of google searches.
 
-<h2>Screenshots</h2>
-<img src="https://share.getcloudapp.com/6quLpLk4" style="width: 400px">
-![Home page](https://share.getcloudapp.com/6quLpLk4)
-
-https://share.getcloudapp.com/qGuD8DgP
-
-https://share.getcloudapp.com/OAuL1LRq
-
-https://share.getcloudapp.com/nOumrmYO
-
-Setup
+<h2>Setup</h2>
 Clone this repo: git clone
 Then install the library dependencies. Run:
 
