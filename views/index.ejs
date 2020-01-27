@@ -12,17 +12,35 @@
     </div>
     <div class="row m-t-40">
       <% recentPosts.forEach(post => { %>
-      
+
       <div class="col-md-4">
         <div class="card" data-aos="flip-left" data-aos-duration="1200">
-          <a href="/posts/<%= post.id %>"><img class="card-img-top" src="<%= post.images[0].url %>"
-              alt="wrappixel kit"></a>
+          <% if(post.images[0]) { %>
+          <a href="/posts/<%= post.id %>">
+            <img
+              class="card-img-top"
+              src="<%= post.images[0].url %>"
+              alt="wrappixel kit"
+            />
+          </a>
+          <% } else { %>
+          <a href="/posts/<%= post.id %>">
+            <%= post.title %>
+          </a>
+          <% } %>
+
           <div class="date-pos bg-info-gradiant">
-            <%= moment(post._id).format('MMM') %><span><%= moment(post._id).format('D') %></span></div>
-          <h5 class="font-medium my-3"><a href="/posts/<%= post.id %>" class="link"><%= post.title %></a></h5>
+            <%= moment(post._id).format('MMM') %><span
+              ><%= moment(post._id).format('D') %></span
+            >
+          </div>
+          <h5 class="font-medium my-3">
+            <a href="/posts/<%= post.id %>" class="link"><%= post.title %></a>
+          </h5>
           <p class="my-1"><%= post.location %></p>
-          <a href="/posts/<%= post.id %>" class="linking text-themecolor my-1">Learn More <i
-              class="ti-arrow-right"></i></a>
+          <a href="/posts/<%= post.id %>" class="linking text-themecolor my-1"
+            >See More Info <i class="ti-arrow-right"></i
+          ></a>
         </div>
       </div>
       <% }); %>
